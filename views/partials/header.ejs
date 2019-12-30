@@ -14,9 +14,13 @@
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
-                    <a class="nav-item nav-link" href="/">Login</a>
-                    <a class="nav-item nav-link" href="/">Sign Up</a>
-                    <a class="nav-item nav-link" href="/">Logout</a>
+                    <% if(!currentUser) { %>
+                        <a class="nav-item nav-link" href="/login">Login</a>
+                        <a class="nav-item nav-link" href="/register">Sign Up</a>
+                    <% } else { %>
+                        <a class="nav-item nav-link" href="#">Currently logged in as: <%=currentUser.username%></a>
+                        <a class="nav-item nav-link" href="/logout">Logout</a>
+                    <% } %>
                 </ul>
             </div>
         </div>
