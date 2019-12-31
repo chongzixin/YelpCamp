@@ -3,6 +3,7 @@ var express = require("express"),
     bodyParser = require("body-parser"),
     mongoose = require("mongoose"),
     passport = require("passport"),
+    flash = require("connect-flash"),
     LocalStrategy = require("passport-local"),
     methodOverride = require("method-override"),
     Campground = require("./models/campground"),
@@ -18,6 +19,7 @@ var app = express();
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+app.use(flash());
 
 // PASSPORT CONFIG
 app.use(express.static(__dirname + "/public"));
@@ -35,6 +37,8 @@ passport.deserializeUser(User.deserializeUser());
 // this is a middleware that will send req.user to every route (res)
 app.use(function(req, res, next) {
     res.locals.currentUser = req.user;
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
     next();
 });
 
