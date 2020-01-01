@@ -4,6 +4,7 @@ var express = require("express"),
     mongoose = require("mongoose"),
     passport = require("passport"),
     flash = require("connect-flash"),
+    moment = require("moment"),
     LocalStrategy = require("passport-local"),
     methodOverride = require("method-override"),
     Campground = require("./models/campground"),
@@ -20,6 +21,8 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(flash());
+
+app.locals.moment = moment;
 
 // PASSPORT CONFIG
 app.use(express.static(__dirname + "/public"));

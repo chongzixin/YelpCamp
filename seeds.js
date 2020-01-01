@@ -1,4 +1,4 @@
-var mongoose = require("mongoose");
+ var mongoose = require("mongoose");
 var Campground = require("./models/campground");
 var Comment = require("./models/comment");
 
@@ -21,23 +21,27 @@ var seeds = [
 ]
 
 async function seedDB() {
-    //Remove all campgrounds
-    await Campground.deleteMany({});
-    await Comment.deleteMany({});
-    
-    for(const seed of seeds) {
-        //add a few campgrounds
-        let campground = await Campground.create(seed);
+    try {
+        //Remove all campgrounds
+        await Campground.deleteMany({});
+        await Comment.deleteMany({});
 
-        //create a comment
-        let comment = await Comment.create(
-            {
-                text: "This place is great, but I wish there was internet",
-                author: "Homer"
-            });
+        for (const seed of seeds) {
+            //add a few campgrounds
+            let campground = await Campground.create(seed);
 
-        campground.comments.push(comment);
-        campground.save();
+            //create a comment
+            let comment = await Comment.create(
+                {
+                    text: "This place is great, but I wish there was internet",
+                    author: "Homer"
+                });
+
+            campground.comments.push(comment);
+            campground.save();
+        }
+    } catch(err) {
+        console.log(err);
     }
 }
 
