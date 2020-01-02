@@ -52,7 +52,7 @@ app.use("/campgrounds/:id/comments", commentRoutes);
 // seedDB(); // seed the database
 
 // MONGODB
-var url = process.env.DATABASEURL || "mongodb://localhost:27017/yelpcamp";
+var url = process.env.DATABASEURL || "mongodb://mongo:27017/yelpcamp";
 mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
 
 app.listen(3000, () => {
